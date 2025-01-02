@@ -5,7 +5,7 @@ import { db, LogEntry } from "./db.js";
 import { useLiveQuery } from "dexie-react-hooks";
 
 export function App() {
-  const log = useLiveQuery(() => db.logEntries.toArray());
+  const log = useLiveQuery(() => db.logEntries.orderBy("timestamp").toArray());
   // modeldb?
   const [gossipLog, setGossipLog] =
     useState<AbstractGossipLog<LogEntry> | null>(null);
@@ -38,7 +38,7 @@ export function App() {
 
   const logActivity = useCallback(
     (activity: string) => {
-      const timestamp = new Date().toLocaleString();
+      const timestamp = new Date().toISOString();
 
       if (gossipLog) {
         // write a message to the log
