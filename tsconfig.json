@@ -1,18 +1,5 @@
 {
-  "compilerOptions": {
-    "composite": true,
-    "strict": true,
-    "declaration": true,
-    "module": "node16",
-    "target": "es2020",
-    "moduleResolution": "node16",
-    "allowSyntheticDefaultImports": true,
-    "useDefineForClassFields": true,
-    "skipLibCheck": true,
-    "types": ["vite/client"],
-    "rootDir": "src",
-    "outDir": "lib",
-    "esModuleInterop": true,
-    "jsx": "react"
-  }
+  "files": [],
+  "exclude": ["**/vite.config.ts"],
+  "references": [{ "path": "./packages/client" }]
 }

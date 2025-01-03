@@ -5,7 +5,9 @@ import { db, LogEntry } from "./db.js";
 import { useLiveQuery } from "dexie-react-hooks";
 
 export function App() {
-  const log = useLiveQuery(() => db.logEntries.orderBy("timestamp").toArray());
+  const log = useLiveQuery(() =>
+    db.logEntries.orderBy("timestamp").reverse().toArray()
+  );
   // modeldb?
   const [gossipLog, setGossipLog] =
     useState<AbstractGossipLog<LogEntry> | null>(null);
@@ -22,6 +24,7 @@ export function App() {
         },
         topic: "activity-tracker",
       });
+      await gossipLog.connect("ws://localhost:8001");
       setGossipLog(gossipLog);
     }
     initGossipLog();
@@ -67,11 +70,13 @@ export function App() {
       </div>
       <div style={styles.logContainer}>
         <h2>Activity Log</h2>
-        {(log || []).map((entry, index) => (
-          <div key={index} style={styles.logEntry}>
-            {entry.timestamp} - {entry.activity}
-          </div>
-        ))}
+        <div style={styles.logEntriesContainer}>
+          {(log || []).map((entry, index) => (
+            <div key={index} style={styles.logEntry}>
+              {entry.timestamp} - {entry.activity}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -82,7 +87,6 @@ const styles: Record<string, React.CSSProperties> = {
     fontFamily: "Arial, sans-serif",
     maxWidth: "600px",
     margin: "0 auto",
-    padding: "20px",
     textAlign: "center",
   },
   buttonGrid: {
@@ -103,11 +107,14 @@ const styles: Record<string, React.CSSProperties> = {
   },
   logContainer: {
     textAlign: "left",
-    maxHeight: "300px",
-    overflowY: "auto",
     border: "1px solid #ddd",
     borderRadius: "5px",
-    padding: "10px",
+    paddingLeft: "10px",
+    paddingRight: "10px",
+  },
+  logEntriesContainer: {
+    maxHeight: "300px",
+    overflowY: "auto",
   },
   logEntry: {
     borderBottom: "1px solid #eee",
