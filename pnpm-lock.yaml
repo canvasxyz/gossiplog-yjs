@@ -11,20 +11,17 @@ importers:
   packages/client:
     dependencies:
       '@canvas-js/gossiplog':
-        specifier: ^0.13.9
-        version: 0.13.9(@types/react@19.0.2)(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.2)(react@19.0.0))(react@19.0.0))(react@19.0.0)
-      dexie:
-        specifier: ^4.0.10
-        version: 4.0.10
-      dexie-react-hooks:
-        specifier: ^1.1.7
-        version: 1.1.7(@types/react@19.0.2)(dexie@4.0.10)(react@19.0.0)
+        specifier: 0.14.0-next.0
+        version: 0.14.0-next.0(@types/react@19.0.2)(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.2)(react@19.0.0))(react@19.0.0))(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
+      yjs:
+        specifier: ^13.6.23
+        version: 13.6.23
     devDependencies:
       '@types/react':
         specifier: ^19.0.2
@@ -45,8 +42,8 @@ importers:
   packages/server:
     dependencies:
       '@canvas-js/gossiplog':
-        specifier: ^0.13.9
-        version: 0.13.9(@types/react@19.0.2)(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.2)(react@19.0.0))(react@19.0.0))(react@19.0.0)
+        specifier: 0.14.0-next.0
+        version: 0.14.0-next.0(@types/react@19.0.2)(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.2)(react@19.0.0))(react@19.0.0))(react@19.0.0)
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -801,41 +798,41 @@ packages:
     resolution: {integrity: sha512-vN5p+1kl59GVKMvTHt55NzzmYVxprfJD+ql7U9NFIfKCBkYE55LYtS+WtPlaYOyzydrKI8Nezd+aZextrd+FMA==}
     engines: {node: '>=6.9.0'}
 
-  '@canvas-js/gossiplog@0.13.9':
-    resolution: {integrity: sha512-emRy4prvOsyVLsp1fSwpfo6N2PWhtUwOZUuyLsizXJVRkv4VqdK6kqE4uIB8EM6qkL5mj3f1gADPSXFGWnNWfg==}
+  '@canvas-js/gossiplog@0.14.0-next.0':
+    resolution: {integrity: sha512-XP1l+7MbADIv7VNp1CjIH9xMZWn9+i0pwrpAx/DgXku8lHIzvatMKvr+FGQFCJ8yEVXD6nSvqe5j36DpSwCq4w==}
     engines: {node: '>=20.0.0'}
 
-  '@canvas-js/interfaces@0.13.9':
-    resolution: {integrity: sha512-pFBhg7Yqfk36L5wnbMcspMLH86bd/wmqclPWI4yrwK3Y9jqNnnZmCbFnqCLBAHZjLvGYj8yLS/c7pXjbWWWesQ==}
+  '@canvas-js/interfaces@0.14.0-next.0':
+    resolution: {integrity: sha512-KbHnjYhUV5epIYo9jKBmV1++b+/r/6SLJgaSBPdEBwzx/A76P0mtwgWCrf3bx8PyhyssNroZo2b+3SoLsPiDEw==}
 
   '@canvas-js/libp2p-rendezvous@0.2.1':
     resolution: {integrity: sha512-A6HGq6qTBu97YT1SVE+tdlfXI4vaFIJvOHy4px4fauE2NKLZc5Ro7twRwPO0EoodI6Ki3wzOdfOIdEuw5HZu+A==}
 
-  '@canvas-js/modeldb-durable-objects@0.13.9':
-    resolution: {integrity: sha512-TzUJoy1Z1XGrVfL+l5/Ukuxl9O/9VTsTGgaOPAJqhGCVoPwu8ftaTuOa+ozlvE/PVoZEcHbItjbLTiiALv4pow==}
+  '@canvas-js/modeldb-durable-objects@0.14.0-next.0':
+    resolution: {integrity: sha512-s97ti2UZ5RhYFsUtJlP8dkROIG44RK4XgpFLyeWf80mI5z7IXkWZIpbc9H5I4qI+r3AgP+9jqqNLgslXPh5WRw==}
     engines: {node: '>=20.0.0'}
 
-  '@canvas-js/modeldb-idb@0.13.9':
-    resolution: {integrity: sha512-RaZxLLWM1BWT3Ft+EgeV39ztYFgK6AFWPfLMvAneIm541XfsTWFfAG8g2/twXSJFxaQqKlwzn+xiUYMFiOYugw==}
+  '@canvas-js/modeldb-idb@0.14.0-next.0':
+    resolution: {integrity: sha512-SaR911+wbNl0yfWGULXL2d4Gm/gVcjYUmUxf+BzJd94qfCFF/5uLVgVZKL6w2oAkWxU+xQmj2A7ukrPaB9YfLQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       '@types/react': ^18.3.9
       react: ^18.3.1
 
-  '@canvas-js/modeldb-pg@0.13.9':
-    resolution: {integrity: sha512-ViMmWwUtszyLEVKfvZjTNPacj6HzjuMrY3FGvGehZyHizTOoTmQhf1V+Ij0I2opIZjFZFw1sZnvwan2IbmsXaQ==}
+  '@canvas-js/modeldb-pg@0.14.0-next.0':
+    resolution: {integrity: sha512-3W6kMipRC1cUStJQ/yT2Tl3c/eN86+5qi9hiQDKH+WzDDM92TJEpR7xVzqKgf8xvNElv0nsKo3ZfRaiA09ZE2w==}
     engines: {node: '>=20.0.0'}
 
-  '@canvas-js/modeldb-sqlite-expo@0.13.9':
-    resolution: {integrity: sha512-L/7OD8at6gvHV8r7xnAW/aCQfbGj+DXRpaPwlGXuOEWiWu09BsUP+wJaUssm0eYDM2aDvDab9NVJCitX7YV9kw==}
+  '@canvas-js/modeldb-sqlite-expo@0.14.0-next.0':
+    resolution: {integrity: sha512-itZgvnxp9UiJgzshvHxQaFl0BHZJcnmb9IYHxXXxmmter8i+b9+6SwesU0oMcvieuUsFSkXFs9Nbw5Xmd1lv6w==}
     engines: {node: '>=20.0.0'}
 
-  '@canvas-js/modeldb-sqlite@0.13.9':
-    resolution: {integrity: sha512-Sb9hnQaKdtFkmmcBvWCpfoLz91unjoQlD84rssNiJ9p0Dn/ozX+vwTd+Yzwu6xfDM11sRVYRCcuVy/8vUlYYcA==}
+  '@canvas-js/modeldb-sqlite@0.14.0-next.0':
+    resolution: {integrity: sha512-UGSU0SbkqJw+QfXb4WCGG6BvoztEgbtsM/2bV1v/WJ0GdA6JaOY5VVTsYWhKWRaeLd77seZ76fhw7NSO7beQhg==}
     engines: {node: '>=20.0.0'}
 
-  '@canvas-js/modeldb@0.13.9':
-    resolution: {integrity: sha512-lAt4ghExrA3jMr5U6M+Or4J3X2s3G6flAQljFCvMhYIPFqOFk7IVEJHkfbjwUp98lIepcukPKprJWIq+xpX61Q==}
+  '@canvas-js/modeldb@0.14.0-next.0':
+    resolution: {integrity: sha512-imf9Q6qmK+eU0+9bxQqnYoYCFKUkOJkPAnCqbKSOYdgmEBHT5WfIu5DLKV2XTpgj1sPsXmGruV9eqwL24ScSTw==}
     engines: {node: '>=20.0.0'}
 
   '@canvas-js/okra-lmdb@0.2.1':
@@ -848,12 +845,12 @@ packages:
   '@canvas-js/okra@0.4.6':
     resolution: {integrity: sha512-UrKrTLhtRX1CR/61Yx6Pwq70az8Xn0RJTEEBqYH6ZtBp8lBwsdDWY5t6PxHkAkIkiEoer3HxmyUVTRLoE2N+Dg==}
 
-  '@canvas-js/signatures@0.13.9':
-    resolution: {integrity: sha512-TaAUOETqzn6nJRyVtttr4dl6ph+8rO8s2U3imvoHvkwVCxZMrLJWO8IYPHEEN/sqzmOf2hTAWuuQpyZLy74jwQ==}
+  '@canvas-js/signatures@0.14.0-next.0':
+    resolution: {integrity: sha512-ehCKLtP/zS9H8ZC8V7e66Y4mc2OmwbBL+3sH/lsJPIsFMRF7u2YaTNZ5iZY50UqNQBxFgcp769Nlusf5FiXpqQ==}
     engines: {node: '>=20.0.0'}
 
-  '@canvas-js/utils@0.13.9':
-    resolution: {integrity: sha512-HDinpVndmOcOkQNg8hS5r9Ry0o+3Mlqc/W8wfC6HgDUvVsQBwZ3i0Rmx35XrX0L8zR2sI3DD2q/IEaZ2Xe8GRA==}
+  '@canvas-js/utils@0.14.0-next.0':
+    resolution: {integrity: sha512-Mdza2TVX/fOWZ4/LuVPwfDKBbkI0//fXQIYAm9gzvGtTEX9Y418cORBQlhB9Hvs9JsWi62pXrnXCJOfd8tWF1g==}
     engines: {node: '>=20.0.0'}
 
   '@chainsafe/as-chacha20poly1305@0.1.0':
@@ -2467,16 +2464,6 @@ packages:
     resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
     engines: {node: '>=8'}
 
-  dexie-react-hooks@1.1.7:
-    resolution: {integrity: sha512-Lwv5W0Hk+uOW3kGnsU9GZoR1er1B7WQ5DSdonoNG+focTNeJbHW6vi6nBoX534VKI3/uwHebYzSw1fwY6a7mTw==}
-    peerDependencies:
-      '@types/react': '>=16'
-      dexie: ^3.2 || ^4.0.1-alpha
-      react: '>=16'
-
-  dexie@4.0.10:
-    resolution: {integrity: sha512-eM2RzuR3i+M046r2Q0Optl3pS31qTWf8aFuA7H9wnsHTwl8EPvroVLwvQene/6paAs39Tbk6fWZcn2aZaHkc/w==}
-
   diffie-hellman@5.0.3:
     resolution: {integrity: sha512-kqag/Nl+f3GwyK25fhUMYj81BUOrZ9IuJsjIcDE5icNM9FJHAVm3VcUDxdLPoQtTuUylWm6ZIknYJwwaPxsUzg==}
 
@@ -3166,6 +3153,9 @@ packages:
     resolution: {integrity: sha512-u4sej9B1LPSxTGKB/HiuzvEQnXH0ECYkSVQU39koSwmFAxhlEAFl9RdTvLv4TOTQUgBS5O3O5fwUxk6byBZ+IQ==}
     engines: {node: '>=10'}
 
+  isomorphic.js@0.2.5:
+    resolution: {integrity: sha512-PIeMbHqMt4DnUP3MA/Flc0HElYjMXArsw1qwJZcm9sqR8mq3l8NYizFMty0pWwE/tzIGH3EKK5+jes5mAr85yw==}
+
   istanbul-lib-coverage@3.2.2:
     resolution: {integrity: sha512-O8dpsF+r0WV/8MNRKfnmrtCWhuKjxrq2w+jpzBL5UZKTi2LeVWnWOmWRxFlesJONmc+wLAGvKQZEOanko0LFTg==}
     engines: {node: '>=8'}
@@ -3351,6 +3341,11 @@ packages:
   leven@3.1.0:
     resolution: {integrity: sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==}
     engines: {node: '>=6'}
+
+  lib0@0.2.99:
+    resolution: {integrity: sha512-vwztYuUf1uf/1zQxfzRfO5yzfNKhTtgOByCruuiQQxWQXnPb8Itaube5ylofcV0oM0aKal9Mv+S1s1Ky0UYP1w==}
+    engines: {node: '>=16'}
+    hasBin: true
 
   libp2p@2.4.2:
     resolution: {integrity: sha512-8y+moEpzzkDjRbK7e+0k8zgtCnL4RkttFnjxrnzoVLQdk6ki3xf0SQkH3aD6FHyz8fdHlG48Av6BEOsT+F9TKg==}
@@ -5133,6 +5128,10 @@ packages:
     resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
     engines: {node: '>=12'}
 
+  yjs@13.6.23:
+    resolution: {integrity: sha512-ExtnT5WIOVpkL56bhLeisG/N5c4fmzKn4k0ROVfJa5TY2QHbH7F0Wu2T5ZhR7ErsFWQEFafyrnSI8TPKVF9Few==}
+    engines: {node: '>=16.0.0', npm: '>=8.0.0'}
+
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
@@ -6046,21 +6045,21 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@canvas-js/gossiplog@0.13.9(@types/react@19.0.2)(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.2)(react@19.0.0))(react@19.0.0))(react@19.0.0)':
+  '@canvas-js/gossiplog@0.14.0-next.0(@types/react@19.0.2)(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.2)(react@19.0.0))(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@canvas-js/interfaces': 0.13.9
+      '@canvas-js/interfaces': 0.14.0-next.0
       '@canvas-js/libp2p-rendezvous': 0.2.1
-      '@canvas-js/modeldb': 0.13.9
-      '@canvas-js/modeldb-durable-objects': 0.13.9
-      '@canvas-js/modeldb-idb': 0.13.9(@types/react@19.0.2)(react@19.0.0)
-      '@canvas-js/modeldb-pg': 0.13.9
-      '@canvas-js/modeldb-sqlite': 0.13.9
-      '@canvas-js/modeldb-sqlite-expo': 0.13.9(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.2)(react@19.0.0))(react@19.0.0))
+      '@canvas-js/modeldb': 0.14.0-next.0
+      '@canvas-js/modeldb-durable-objects': 0.14.0-next.0
+      '@canvas-js/modeldb-idb': 0.14.0-next.0(@types/react@19.0.2)(react@19.0.0)
+      '@canvas-js/modeldb-pg': 0.14.0-next.0
+      '@canvas-js/modeldb-sqlite': 0.14.0-next.0
+      '@canvas-js/modeldb-sqlite-expo': 0.14.0-next.0(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.2)(react@19.0.0))(react@19.0.0))
       '@canvas-js/okra': 0.4.6
       '@canvas-js/okra-lmdb': 0.2.1
       '@canvas-js/okra-memory': 0.4.6
-      '@canvas-js/signatures': 0.13.9
-      '@canvas-js/utils': 0.13.9
+      '@canvas-js/signatures': 0.14.0-next.0
+      '@canvas-js/utils': 0.14.0-next.0
       '@chainsafe/libp2p-gossipsub': 14.1.0
       '@chainsafe/libp2p-noise': 16.0.0
       '@chainsafe/libp2p-yamux': 7.0.1
@@ -6116,7 +6115,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@canvas-js/interfaces@0.13.9': {}
+  '@canvas-js/interfaces@0.14.0-next.0': {}
 
   '@canvas-js/libp2p-rendezvous@0.2.1':
     dependencies:
@@ -6135,10 +6134,10 @@ snapshots:
       uint8arraylist: 2.4.8
       uint8arrays: 5.1.0
 
-  '@canvas-js/modeldb-durable-objects@0.13.9':
+  '@canvas-js/modeldb-durable-objects@0.14.0-next.0':
     dependencies:
-      '@canvas-js/modeldb': 0.13.9
-      '@canvas-js/utils': 0.13.9
+      '@canvas-js/modeldb': 0.14.0-next.0
+      '@canvas-js/utils': 0.14.0-next.0
       '@cloudflare/workers-types': 4.20241230.0
       '@ipld/dag-json': 10.2.3
       '@types/better-sqlite3': 7.6.12
@@ -6149,10 +6148,10 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@canvas-js/modeldb-idb@0.13.9(@types/react@19.0.2)(react@19.0.0)':
+  '@canvas-js/modeldb-idb@0.14.0-next.0(@types/react@19.0.2)(react@19.0.0)':
     dependencies:
-      '@canvas-js/modeldb': 0.13.9
-      '@canvas-js/utils': 0.13.9
+      '@canvas-js/modeldb': 0.14.0-next.0
+      '@canvas-js/utils': 0.14.0-next.0
       '@ipld/dag-json': 10.2.3
       '@libp2p/logger': 5.1.5
       '@types/react': 19.0.2
@@ -6160,10 +6159,10 @@ snapshots:
       idb: 8.0.1
       react: 19.0.0
 
-  '@canvas-js/modeldb-pg@0.13.9':
+  '@canvas-js/modeldb-pg@0.14.0-next.0':
     dependencies:
-      '@canvas-js/modeldb': 0.13.9
-      '@canvas-js/utils': 0.13.9
+      '@canvas-js/modeldb': 0.14.0-next.0
+      '@canvas-js/utils': 0.14.0-next.0
       '@ipld/dag-json': 10.2.3
       '@types/pg': 8.11.10
       '@types/pg-cursor': 2.7.2
@@ -6172,10 +6171,10 @@ snapshots:
     transitivePeerDependencies:
       - pg-native
 
-  '@canvas-js/modeldb-sqlite-expo@0.13.9(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.2)(react@19.0.0))(react@19.0.0))':
+  '@canvas-js/modeldb-sqlite-expo@0.14.0-next.0(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.2)(react@19.0.0))(react@19.0.0))':
     dependencies:
-      '@canvas-js/modeldb': 0.13.9
-      '@canvas-js/utils': 0.13.9
+      '@canvas-js/modeldb': 0.14.0-next.0
+      '@canvas-js/utils': 0.14.0-next.0
       '@ipld/dag-json': 10.2.3
       '@types/better-sqlite3': 7.6.12
       better-sqlite3: 11.7.0
@@ -6183,17 +6182,17 @@ snapshots:
     transitivePeerDependencies:
       - expo
 
-  '@canvas-js/modeldb-sqlite@0.13.9':
+  '@canvas-js/modeldb-sqlite@0.14.0-next.0':
     dependencies:
-      '@canvas-js/modeldb': 0.13.9
-      '@canvas-js/utils': 0.13.9
+      '@canvas-js/modeldb': 0.14.0-next.0
+      '@canvas-js/utils': 0.14.0-next.0
       '@ipld/dag-json': 10.2.3
       '@types/better-sqlite3': 7.6.12
       better-sqlite3: 11.7.0
 
-  '@canvas-js/modeldb@0.13.9':
+  '@canvas-js/modeldb@0.14.0-next.0':
     dependencies:
-      '@canvas-js/utils': 0.13.9
+      '@canvas-js/utils': 0.14.0-next.0
       '@ipld/dag-json': 10.2.3
       '@libp2p/logger': 5.1.5
       uint8arrays: 5.1.0
@@ -6218,10 +6217,10 @@ snapshots:
       uint8arrays: 5.1.0
       weald: 1.0.4
 
-  '@canvas-js/signatures@0.13.9':
+  '@canvas-js/signatures@0.14.0-next.0':
     dependencies:
-      '@canvas-js/interfaces': 0.13.9
-      '@canvas-js/utils': 0.13.9
+      '@canvas-js/interfaces': 0.14.0-next.0
+      '@canvas-js/utils': 0.14.0-next.0
       '@ipld/dag-cbor': 9.2.2
       '@ipld/dag-json': 10.2.3
       '@libp2p/logger': 5.1.5
@@ -6229,9 +6228,9 @@ snapshots:
       '@noble/hashes': 1.6.1
       multiformats: 13.3.1
 
-  '@canvas-js/utils@0.13.9':
+  '@canvas-js/utils@0.14.0-next.0':
     dependencies:
-      '@canvas-js/interfaces': 0.13.9
+      '@canvas-js/interfaces': 0.14.0-next.0
 
   '@chainsafe/as-chacha20poly1305@0.1.0': {}
 
@@ -8345,14 +8344,6 @@ snapshots:
 
   detect-libc@2.0.3: {}
 
-  dexie-react-hooks@1.1.7(@types/react@19.0.2)(dexie@4.0.10)(react@19.0.0):
-    dependencies:
-      '@types/react': 19.0.2
-      dexie: 4.0.10
-      react: 19.0.0
-
-  dexie@4.0.10: {}
-
   diffie-hellman@5.0.3:
     dependencies:
       bn.js: 4.12.1
@@ -9128,6 +9119,8 @@ snapshots:
 
   isomorphic-timers-promises@1.0.1: {}
 
+  isomorphic.js@0.2.5: {}
+
   istanbul-lib-coverage@3.2.2: {}
 
   istanbul-lib-instrument@5.2.1:
@@ -9386,6 +9379,10 @@ snapshots:
   kleur@3.0.3: {}
 
   leven@3.1.0: {}
+
+  lib0@0.2.99:
+    dependencies:
+      isomorphic.js: 0.2.5
 
   libp2p@2.4.2:
     dependencies:
@@ -11307,6 +11304,10 @@ snapshots:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
+
+  yjs@13.6.23:
+    dependencies:
+      lib0: 0.2.99
 
   yocto-queue@0.1.0: {}
 

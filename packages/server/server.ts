@@ -12,7 +12,7 @@ const port = 8001;
 const gossipLog = new GossipLog({
   // no need for an apply message
   apply: () => {},
-  topic: "activity-tracker",
+  topic: "gossiplog-yjs",
 });
 
 const api = express();
