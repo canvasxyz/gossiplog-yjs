@@ -36,7 +36,7 @@ export function App() {
   }, []);
 
   const doInsert = useCallback(
-    async (index: number, content: string, attributes?: Object) => {
+    async (pos: Y.RelativePosition, content: string, attributes?: Object) => {
       if (!gossipLog) {
         console.log("cannot insert, gossipLog has not been initialised!");
         return;
@@ -44,8 +44,25 @@ export function App() {
       // make a copy of the current doc
       const before = Y.snapshot(stateRef.current);
       const updatedState = Y.createDocFromSnapshot(stateRef.current, before);
+
+      const absolutePosition = Y.createAbsolutePositionFromRelativePosition(
+        pos,
+        updatedState
+      );
+
+      if (!absolutePosition) {
+        // throw an error - we can't generate an absolute position from this relative position
+        throw new Error(
+          `Could not generate absolute position from relative position ${JSON.stringify(
+            pos
+          )}`
+        );
+      }
+
       // perform the action on it
-      updatedState.getText().insert(index, content, attributes);
+      updatedState
+        .getText()
+        .insert(absolutePosition.index, content, attributes);
       // diff it and the current state
       const diff = Y.diffUpdate(
         Y.encodeStateAsUpdate(updatedState),
@@ -58,7 +75,7 @@ export function App() {
   );
 
   const doDelete = useCallback(
-    async (index: number, deleteLength: number) => {
+    async (pos: Y.RelativePosition, deleteLength: number) => {
       if (!gossipLog) {
         console.log("cannot insert, gossipLog has not been initialised!");
         return;
@@ -66,8 +83,22 @@ export function App() {
       // make a copy of the current doc
       const before = Y.snapshot(stateRef.current);
       const updatedState = Y.createDocFromSnapshot(stateRef.current, before);
+      const absolutePosition = Y.createAbsolutePositionFromRelativePosition(
+        pos,
+        updatedState
+      );
+
+      if (!absolutePosition) {
+        // throw an error - we can't generate an absolute position from this relative position
+        throw new Error(
+          `Could not generate absolute position from relative position ${JSON.stringify(
+            pos
+          )}`
+        );
+      }
+
       // perform the action on it
-      updatedState.getText().delete(index, deleteLength);
+      updatedState.getText().delete(absolutePosition.index, deleteLength);
       // diff it and the current state
       const diff = Y.diffUpdate(
         Y.encodeStateAsUpdate(updatedState),
@@ -83,17 +114,34 @@ export function App() {
   return (
     <div style={styles.container}>
       <span>To select an index, click one of the numbered buttons below:</span>
-      <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-        <button onClick={() => setIndex(0)}>
-          {index === 0 ? <strong>{0}</strong> : 0}
-        </button>
+      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
+          <button onClick={() => setIndex(0)}>
+            {index === 0 ? <strong>{0}</strong> : 0}
+          </button>
+          {stateRef.current &&
+            JSON.stringify(
+              Y.createRelativePositionFromTypeIndex(
+                stateRef.current.getText(),
+                0
+              )
+            )}
+        </div>
         {outputArr.map((c, i) => (
           <>
             <span key={`span-${i}`}>{c}</span>
-            <button key={`button-${i + 1}`} onClick={() => setIndex(i + 1)}>
-              {index === i + 1 ? <strong>{i + 1}</strong> : i + 1}
-              {/* {i + 1} */}
-            </button>
+            <div style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
+              <button key={`button-${i + 1}`} onClick={() => setIndex(i + 1)}>
+                {index === i + 1 ? <strong>{i + 1}</strong> : i + 1}
+              </button>
+              {stateRef.current &&
+                JSON.stringify(
+                  Y.createRelativePositionFromTypeIndex(
+                    stateRef.current.getText(),
+                    i + 1
+                  )
+                )}
+            </div>
           </>
         ))}
       </div>
@@ -110,8 +158,11 @@ export function App() {
             if (!content) {
               return;
             }
-
-            doInsert(index, content).then(() => {
+            const pos = Y.createRelativePositionFromTypeIndex(
+              stateRef.current.getText(),
+              index
+            );
+            doInsert(pos, content).then(() => {
               setIndex(0);
               setContent("");
             });
@@ -131,7 +182,11 @@ export function App() {
         characters at position {index}:
         <button
           onClick={() => {
-            doDelete(index, deleteLength).then(() => {
+            const pos = Y.createRelativePositionFromTypeIndex(
+              stateRef.current.getText(),
+              index
+            );
+            doDelete(pos, deleteLength).then(() => {
               setIndex(0);
               setContent("");
             });
