@@ -1,20 +1,82 @@
 import { AbstractGossipLog, SignedMessage } from "@canvas-js/gossiplog";
+import { Signer } from "@canvas-js/interfaces";
 import { deleteDB } from "idb";
 import { GossipLog as IdbGossipLog } from "@canvas-js/gossiplog/idb";
+import { ed25519 } from "@canvas-js/signatures";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as Y from "yjs";
 
-type InsertUpdate = {
+type InsertActionUpdate = {
   type: "insert";
-  pos: Y.RelativePosition;
+  index: number;
   content: string;
-  attributes: any;
 };
-type DeleteUpdate = { type: "delete"; pos: Y.RelativePosition; length: number };
-type Update = InsertUpdate | DeleteUpdate;
+type DeleteActionUpdate = {
+  type: "delete";
+  index: number;
+  length: number;
+};
+
+type DiffUpdate = {
+  type: "diff";
+  data: Uint8Array;
+};
+
+type Update = InsertActionUpdate | DeleteActionUpdate | DiffUpdate;
+
+function isInsertActionUpdate(
+  data: object & { type: any }
+): data is InsertActionUpdate {
+  return (
+    data.type === "insert" &&
+    "index" in data &&
+    typeof data.index === "number" &&
+    "content" in data &&
+    typeof data.content === "string"
+  );
+}
+
+function isDeleteActionUpdate(
+  data: object & { type: any }
+): data is InsertActionUpdate {
+  return (
+    data.type === "delete" &&
+    "index" in data &&
+    typeof data.index === "number" &&
+    "length" in data &&
+    typeof data.length === "number"
+  );
+}
+
+function isDiffActionUpdate(
+  data: object & { type: any }
+): data is InsertActionUpdate {
+  return (
+    data.type === "diff" && "data" in data && data.data instanceof Uint8Array
+  );
+}
+
+function isUpdate(data: unknown): data is Update {
+  console.log(data);
+  if (!(typeof data === "object" && data !== null && "type" in data)) {
+    return false;
+  }
+  return (
+    isInsertActionUpdate(data) ||
+    isDeleteActionUpdate(data) ||
+    isDiffActionUpdate(data)
+  );
+}
+
+function docFromUpdate(update: Uint8Array): Y.Doc {
+  const newDoc = new Y.Doc();
+  Y.applyUpdate(newDoc, update);
+  return newDoc;
+}
+
+const topic = `gossiplog-yjs`;
 
 export function App() {
-  // modeldb?
   const [gossipLog, setGossipLog] = useState<AbstractGossipLog<Update> | null>(
     null
   );
@@ -24,47 +86,56 @@ export function App() {
   const [content, setContent] = useState("");
 
   const stateRef = useRef<Y.Doc>(new Y.Doc({ gc: false }));
+  const messagesToAppend = useRef<Update[]>([]);
 
   useEffect(() => {
     async function initGossipLog() {
+      const signer: Signer<Update> = ed25519.create();
       const gossipLog = await IdbGossipLog.open({
+        validatePayload: isUpdate,
+        signer,
         apply: (signedMessage: SignedMessage<Update>) => {
-          const update = signedMessage.message.payload;
-
-          const absolutePosition = Y.createAbsolutePositionFromRelativePosition(
-            update.pos,
-            stateRef.current
-          );
-
-          if (!absolutePosition) {
-            // throw an error - we can't generate an absolute position from this relative position
-            throw new Error(
-              `Could not generate absolute position from relative position ${JSON.stringify(
-                update.pos
-              )}`
-            );
-          }
-
-          if (update.type === "delete") {
-            // do delete to the current state ref
-            stateRef.current
-              .getText()
-              .delete(absolutePosition.index, update.length);
-          } else if (update.type === "insert") {
-            // do insert to the current state ref
-            stateRef.current
-              .getText()
-              .insert(
-                absolutePosition.index,
-                update.content,
-                update.attributes
+          // this is a crude way of determining whether the message was created with append or insert
+          // because it is technically possible that two peers could have the same public key
+          const isAppend =
+            signedMessage.signature.publicKey === signer.publicKey;
+          const payload = signedMessage.message.payload;
+          if (payload.type === "delete") {
+            if (isAppend) {
+              // create a diff and send it
+              const state0 = Y.encodeStateAsUpdate(stateRef.current);
+              // don't modify the doc in the react state
+              const docCopy = docFromUpdate(state0);
+              docCopy.getText().delete(payload.index, payload.length);
+              const state1 = Y.encodeStateAsUpdate(docCopy);
+              const diff = Y.diffUpdate(
+                state1,
+                Y.encodeStateVectorFromUpdate(state0)
               );
+              messagesToAppend.current.push({ type: "diff", data: diff });
+            }
+          } else if (payload.type === "insert") {
+            if (isAppend) {
+              // create a diff and send it
+              const state0 = Y.encodeStateAsUpdate(stateRef.current);
+              // don't modify the doc in the react state
+              const docCopy = docFromUpdate(state0);
+              docCopy.getText().insert(payload.index, payload.content);
+              const state1 = Y.encodeStateAsUpdate(docCopy);
+              const diff = Y.diffUpdate(
+                state1,
+                Y.encodeStateVectorFromUpdate(state0)
+              );
+              messagesToAppend.current.push({ type: "diff", data: diff });
+            }
+          } else if (payload.type === "diff") {
+            // apply the diff
+            Y.applyUpdate(stateRef.current, payload.data);
           }
-
           // update the rendered text
           setOutput(stateRef.current.getText().toJSON());
         },
-        topic: "gossiplog-yjs",
+        topic,
       });
       await gossipLog.connect("ws://localhost:8001");
       setGossipLog(gossipLog);
@@ -72,50 +143,33 @@ export function App() {
     initGossipLog();
   }, []);
 
-  const doInsert = useCallback(
-    async (pos: Y.RelativePosition, content: string, attributes?: Object) => {
-      if (!gossipLog) {
-        console.log("cannot insert, gossipLog has not been initialised!");
-        return;
-      }
-
-      await gossipLog.append({ type: "insert", pos, content, attributes });
-    },
-    [gossipLog]
-  );
-
-  const doDelete = useCallback(
-    async (pos: Y.RelativePosition, deleteLength: number) => {
-      if (!gossipLog) {
-        console.log("cannot insert, gossipLog has not been initialised!");
-        return;
-      }
-
-      await gossipLog.append({ type: "delete", pos, length: deleteLength });
-    },
-    [gossipLog]
-  );
-
   const clear = useCallback(async () => {
-    await deleteDB(`canvas/v1/gossiplog-yjs`, {});
+    await deleteDB(`canvas/v1/${topic}`, {});
   }, []);
+
+  async function flushMessages() {
+    // we are using a queue instead of calling `gossipLog.append` directly because after applying a message
+    // we may want to schedule subsequent messages
+    if (!gossipLog) {
+      return;
+    }
+    while (messagesToAppend.current.length > 0) {
+      const messageToAppend = messagesToAppend.current.shift();
+      if (messageToAppend) {
+        await gossipLog.append(messageToAppend);
+      }
+    }
+  }
 
   const outputArr = Array.from(output);
   return (
     <div style={styles.container}>
       <span>To select an index, click one of the numbered buttons below:</span>
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
         <div style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
           <button onClick={() => setIndex(0)}>
             {index === 0 ? <strong>{0}</strong> : 0}
           </button>
-          {stateRef.current &&
-            JSON.stringify(
-              Y.createRelativePositionFromTypeIndex(
-                stateRef.current.getText(),
-                0
-              )
-            )}
         </div>
         {outputArr.map((c, i) => (
           <>
@@ -127,13 +181,6 @@ export function App() {
               <button onClick={() => setIndex(i + 1)}>
                 {index === i + 1 ? <strong>{i + 1}</strong> : i + 1}
               </button>
-              {stateRef.current &&
-                JSON.stringify(
-                  Y.createRelativePositionFromTypeIndex(
-                    stateRef.current.getText(),
-                    i + 1
-                  )
-                )}
             </div>
           </>
         ))}
@@ -147,18 +194,18 @@ export function App() {
         ></input>{" "}
         at position {index}:{" "}
         <button
-          onClick={() => {
-            if (!content) {
+          onClick={async () => {
+            if (!content || !gossipLog) {
               return;
             }
-            const pos = Y.createRelativePositionFromTypeIndex(
-              stateRef.current.getText(),
-              index
-            );
-            doInsert(pos, content).then(() => {
-              setIndex(0);
-              setContent("");
+            messagesToAppend.current.push({
+              type: "insert",
+              index,
+              content,
             });
+            await flushMessages();
+            setIndex(0);
+            setContent("");
           }}
         >
           Submit
@@ -174,15 +221,18 @@ export function App() {
         ></input>{" "}
         characters at position {index}:
         <button
-          onClick={() => {
-            const pos = Y.createRelativePositionFromTypeIndex(
-              stateRef.current.getText(),
-              index
-            );
-            doDelete(pos, deleteLength).then(() => {
-              setIndex(0);
-              setContent("");
+          onClick={async () => {
+            if (!gossipLog) {
+              return;
+            }
+            messagesToAppend.current.push({
+              type: "delete",
+              index,
+              length: deleteLength,
             });
+            await flushMessages();
+            setIndex(0);
+            setContent("");
           }}
         >
           Submit

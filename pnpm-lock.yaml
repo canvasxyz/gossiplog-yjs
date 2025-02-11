@@ -13,6 +13,12 @@ importers:
       '@canvas-js/gossiplog':
         specifier: 0.14.0-next.0
         version: 0.14.0-next.0(@types/react@19.0.2)(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.2)(react@19.0.0))(react@19.0.0))(react@19.0.0)
+      '@canvas-js/interfaces':
+        specifier: 0.14.0-next.0
+        version: 0.14.0-next.0
+      '@canvas-js/signatures':
+        specifier: 0.14.0-next.0
+        version: 0.14.0-next.0
       idb:
         specifier: ^8.0.2
         version: 8.0.2
